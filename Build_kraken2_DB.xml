@@ -1,0 +1,63 @@
+<pipeline name="Build_kraken2_db">
+<description>
+This pipeline downloads the kraken2 database with predefined libraries, filter it by length and taxonomic domains
+</description>
+<file id="libsfna" input="True" parameter="1" description="Output fna files under library" display_name="library fnas"/>
+<dir id="outdir" filespec="kraken2DB" datestamp_prepend="%y%m%d-%H%M%S_" default_output="True" />
+<dir id="tax" filespec="taxonomy" in_dir="outdir"/>
+<dir id="lib" filespec="library" in_dir="outdir"/>
+<dir id="pfamdb" filespec="pfamlib" in_dir="outdir"/>
+<file id="taxdb" in_dir="tax" filespec="taxonomy.sqlite"/>
+<step name="taxdw">
+  <tool name="taxdwt"
+   input="outdir"
+   output="tax"
+   description="download_taxonomy.xml"/>
+  <tool name="pfams"
+   input="outdir"
+   output="pfamdb"
+   description="build_PFAM_db.xml"/>
+  <tool name="taxondb"
+   input="tax"
+   output="taxdb"
+   description="build_taxonomy_sqlite.xml"/>
+</step>
+
+
+<foreach id="libd" dir="lib">
+  <file id="libfna" from_file="libsfna"/>
+  <related id="sizefl" input="False" in_dir="lib" pattern="(.*.fna)" replace="\1.long"/>
+  <related id="fltout" input="False" in_dir="lib" pattern="(.*.fna)" replace="\1"/>  
+  <related id="domaintbl" input="False" in_dir="lib" pattern="(.*.fna)" replace="\1.out"/>
+  <related id="proteins" input="False" in_dir="lib" temp="True" pattern="(.*.fna)" replace="\1.faa"/>
+  <related id="domains" input="False" in_dir="lib" temp="True" pattern="(.*.fna)" replace="\1.hmms"/>
+  <step name="downlib">
+    <tool name="downl"
+     input="outdir"
+     output="libfna"
+     description="download_library.xml"/>
+    <tool name="sizeflt"
+     input="libfna"
+     output="sizefl"
+     description="filter_len.xml"/>
+    <tool name="domaindetect"
+     input="sizefl,pfamdb"
+     output="proteins,domains,domaintbl"
+     description="find_taxonomy.xml"/>
+    <tool name="fltdomain"
+     input="sizefl,domaintbl,taxdb"
+     output="fltout"
+     description="filter_taxonomy.xml"/>
+   </step>
+</foreach>
+
+<filelist id="fnas" in_dir="lib" foreach_id="libd" pattern="*/library.fna"/>
+<step name="builddb">
+  <tool name="buildit"
+   input="lib,fnas"
+   description="build_kraken.xml"/>
+</step>
+</pipeline>
+ 
+   
+

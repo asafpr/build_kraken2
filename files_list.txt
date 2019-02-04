@@ -1,0 +1,2 @@
+fungi/library.fna
+viral/library.fna

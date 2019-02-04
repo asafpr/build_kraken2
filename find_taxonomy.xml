@@ -1,0 +1,26 @@
+<tool name="find_taxonomy"
+ threads="20"
+ walltime="72:00:00"
+ tool_config_prefix="findtax">
+<description>
+  Predict taxonomic domain using protein PFAM domains
+</description>
+<!-- 
+Input:
+   * fasta file
+   * PFAM database
+Output:
+   * protein fasta
+   * hmm output
+   * output table
+-->   
+<!-- load virtual env. change if will be changed -->
+<module>emboss</module>
+<module>hmmer</module>
+<option name="limit" value="100" command_text="--limit" type="numeric" description="Maximal number of ORFs for a sequence" display_name="Max ORFs" />
+<option name="threads" command_text="--threads" type="threads" description="Number of threads to use" display_name="threads" />
+<command program="source /projects/peera/venv/test_at/bin/activate"> </command>
+<command program="predict_domain.py">
+ {threads} -d {in_2} -i {in_1} -b {out_2} -t {out_1} {limit} > {out_3}
+</command>
+</tool>

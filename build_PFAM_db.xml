@@ -1,0 +1,17 @@
+<tool name="build_PFAM"
+ threads="1"
+ walltime="5:00:00"
+ tool_config_prefix="buildpfam">
+<description>
+Download the PFAM database from ftp
+</description>
+<!-- 
+Output:
+   * PFAM dir
+-->   
+<!-- load virtual env. change if will be changed -->
+<command program="source /projects/peera/venv/test_at/bin/activate"> </command>
+<command program="build_domains_DB.py">
+ --nodiamond -d {out_1}
+</command>
+</tool>

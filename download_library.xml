@@ -1,0 +1,20 @@
+<tool name="download_library"
+ threads="1"
+ walltime="12:00:00"
+ tool_config_prefix="dwlibrary">
+<description>
+Download taxonomy database with kraken2
+</description>
+<!-- 
+Input:
+   * DB dir
+Output:
+   * new fna file location
+-->   
+<module>blast+</module>
+<module>gcc</module>
+<module>kraken2</module>
+<command program="kraken2-build --download-library">
+  $(echo $'{out_1}' | rev | cut -d "/" -f 2 | rev) --db {in_1}
+</command>
+</tool>

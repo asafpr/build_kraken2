@@ -1,0 +1,19 @@
+<tool name="build_taxonomy"
+ threads="1"
+ walltime="5:00:00"
+ tool_config_prefix="buildtax">
+<description>
+  read the taxonomy dir of kraken DB and build a sqlite representation in a file
+</description>
+<!-- 
+Input:
+   * taxonomy dir
+Output:
+   * taxonomy sqlite database
+-->   
+<!-- load virtual env. change if will be changed -->
+<command program="source /projects/peera/venv/test_at/bin/activate"> </command>
+<command program="filter_kraken_db.py">
+ --dbfile {out_1}  --taxonomy {in_1} /dev/null /dev/null 
+</command>
+</tool>

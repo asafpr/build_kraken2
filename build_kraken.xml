@@ -1,0 +1,20 @@
+<tool name="build_kraken"
+ threads="20"
+ walltime="12:00:00"
+ tool_config_prefix="bldkraken">
+<description>
+Build the kraken dtabase
+</description>
+<!-- 
+Input:
+   * DB dir
+Output:
+-->   
+<module>blast+</module>
+<module>gcc</module>
+<module>kraken2</module>
+<option name="threads" command_text="--threads" type="threads" description="Number of threads to use" display_name="threads" />
+<command program="kraken2-build --build">
+  {threads} --db {in_1}
+</command>
+</tool>

@@ -1,0 +1,20 @@
+<tool name="filter_len"
+ threads="1"
+ walltime="2:00:00"
+ tool_config_prefix="filterlen">
+<description>
+Filter sequences according to length
+</description>
+<!-- 
+Input:
+   * fasta file
+Output:
+   * output fasta file
+-->   
+<!-- load virtual env. change if will be changed -->
+<command program="source /projects/peera/venv/test_at/bin/activate"> </command>
+<option name="minlen" command_text="-m" type="numeric" value="10000" description="Minimal record length" display_name="minimal length" />
+<command program="fasta_tools.py filter_len">
+ {minlen} {in_1} > {out_1}
+</command>
+</tool>

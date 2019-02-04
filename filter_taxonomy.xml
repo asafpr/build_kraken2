@@ -1,0 +1,21 @@
+<tool name="filter_taxonomy"
+ threads="1"
+ walltime="5:00:00"
+ tool_config_prefix="filtertax">
+<description>
+  Filter fasta file records according to their taxonomic prediction, remove records that don't match reported taxonomy
+</description>
+<!-- 
+Input:
+   * fasta file
+   * output table of taxonomy
+   * taxonomy sqlite database
+Output:
+   * filtered fasta
+-->   
+<!-- load virtual env. change if will be changed -->
+<command program="source /projects/peera/venv/test_at/bin/activate"> </command>
+<command program="filter_kraken_db.py">
+ --dbfile {in_3}  {in_1} {in_2} > {out_1}
+</command>
+</tool>
