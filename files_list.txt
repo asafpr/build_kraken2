@@ -1,2 +1,7 @@
+archaea/library.fna
+bacteria/library.fna
 fungi/library.fna
+nt/library.fna
+plasmid/library.fna
+UniVec_Core/library.fna
 viral/library.fna
