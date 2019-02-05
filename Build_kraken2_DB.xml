@@ -54,7 +54,7 @@ This pipeline downloads the kraken2 database with predefined libraries, filter i
 <filelist id="fnas" in_dir="lib" foreach_id="libd" pattern="*/library.fna"/>
 <step name="builddb">
   <tool name="buildit"
-   input="lib,fnas"
+   input="outdir,fnas"
    description="build_kraken.xml"/>
 </step>
 </pipeline>
