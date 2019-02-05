@@ -3,7 +3,7 @@
 This pipeline downloads the kraken2 database with predefined libraries, filter it by length and taxonomic domains
 </description>
 <file id="libsfna" input="True" parameter="1" description="Output fna files under library" display_name="library fnas"/>
-<dir id="outdir" filespec="kraken2DB" datestamp_prepend="%y%m%d-%H%M%S_" default_output="True" />
+<dir id="outdir" input="True" parameter="2" default_output="True" description="Output directory" display_name="output dir"/>
 <dir id="tax" filespec="taxonomy" in_dir="outdir"/>
 <dir id="lib" filespec="library" in_dir="outdir"/>
 <dir id="pfamdb" filespec="pfamlib" in_dir="outdir"/>
