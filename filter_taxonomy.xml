@@ -1,6 +1,6 @@
 <tool name="filter_taxonomy"
  threads="1"
- walltime="5:00:00"
+ walltime="24:00:00"
  tool_config_prefix="filtertax">
 <description>
   Filter fasta file records according to their taxonomic prediction, remove records that don't match reported taxonomy
