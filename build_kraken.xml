@@ -1,6 +1,6 @@
 <tool name="build_kraken"
  threads="20"
- walltime="12:00:00"
+ walltime="24:00:00"
  tool_config_prefix="bldkraken">
 <description>
 Build the kraken dtabase
